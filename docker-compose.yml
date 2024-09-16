@@ -28,7 +28,7 @@ services:
     volumes:
       - ./logstash/pipeline:/usr/share/logstash/pipeline
     ports:
-      - "5000:5000"
+      - "5011:5000"
       - "5044:5044"
     networks:
       - elk-network
@@ -41,7 +41,6 @@ services:
       dockerfile: Dockerfile
       args:
         ELASTIC_VERSION: $ELASTIC_VERSION
-        KIBANA_SYSTEM_PASSWORD: $KIBANA_SYSTEM_PASSWORD
     container_name: kibana
     ports:
       - "5601:5601"
