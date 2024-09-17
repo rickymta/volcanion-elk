@@ -1,9 +1,10 @@
-version: '3.8'
 services:
   elasticsearch:
     build:
       context: ./elasticsearch
       dockerfile: Dockerfile
+      args:
+        ELASTIC_VERSION: $ELASTIC_VERSION
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
@@ -19,6 +20,9 @@ services:
     build:
       context: ./logstash
       dockerfile: Dockerfile
+      args:
+        ELASTIC_VERSION: $ELASTIC_VERSION
+        LOGSTASH_INTERNAL_PASSWORD: $LOGSTASH_INTERNAL_PASSWORD
     container_name: logstash
     volumes:
       - ./logstash/pipeline:/usr/share/logstash/pipeline
@@ -34,6 +38,9 @@ services:
     build:
       context: ./kibana
       dockerfile: Dockerfile
+      args:
+        ELASTIC_VERSION: $ELASTIC_VERSION
+        ELASTIC_PASSWORD: $ELASTIC_PASSWORD
     container_name: kibana
     ports:
       - "5601:5601"
